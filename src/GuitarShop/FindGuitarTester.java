@@ -14,8 +14,8 @@ public class FindGuitarTester {
         initialiseInventory(inventory);
 
         //what customer is looking for
-        Guitar whatLookingFor = new Guitar("", 0, Builder.GIBSON, "Stratocastor",
-                Type.ELECTRIC, Wood.ALDER,Wood.ALDER);
+        GuitarSpec whatLookingFor = new GuitarSpec(Builder.GIBSON, "Stratocastor",
+                Type.ELECTRIC, Wood.ALDER,Wood.ALDER, "12-String");
 
         List matchingGuitars = inventory.search(whatLookingFor);
         if (!matchingGuitars.isEmpty()){
@@ -23,8 +23,10 @@ public class FindGuitarTester {
 
             for(Iterator i = matchingGuitars.iterator(); i.hasNext(); ){
                 Guitar guitar = (Guitar)i.next();
-                System.out.println("We have a " + guitar.getBuilder() +
-                        " " + guitar.getModel() + " " + guitar.getType() + " guitar: " +
+                GuitarSpec spec = guitar.getSpec();
+
+                System.out.println("We have a " + spec.getBuilder() +
+                        " " + spec.getModel() + " " + spec.getType() + " guitar: " +
                         guitar.getPrice());
             }
         }
@@ -36,29 +38,41 @@ public class FindGuitarTester {
 
     public static void initialiseInventory(Inventory inventory){
         //add guitars to the inventory
-        inventory.addGuitar("V00001",
-                1499.99,
-                Builder.FENDER ,
+        GuitarSpec spec = new GuitarSpec(Builder.FENDER ,
                 "Stratocastor",
                 Type.ELECTRIC,
                 Wood.ALDER,
-                Wood.ALDER);
+                Wood.ALDER,"12-String");
+
+        inventory.addGuitar("V00001",
+                1499.99, spec);
+
+        spec = new GuitarSpec(Builder.GIBSON,
+                "Stratocastor",
+                Type.ELECTRIC,
+                Wood.ALDER,
+                Wood.ALDER,"6-String");
 
         inventory.addGuitar("V00002",
-                1199.99,
-                Builder.GIBSON,
+                1199.99, spec);
+
+        spec = new GuitarSpec(Builder.FENDER,
                 "Stratocastor",
                 Type.ELECTRIC,
                 Wood.ALDER,
-                Wood.ALDER);
+                Wood.ALDER,"12-String");
 
         inventory.addGuitar("V00003",
-                1699.99,
-                Builder.FENDER,
+                1500.99,spec);
+
+        spec = new GuitarSpec(Builder.GIBSON,
                 "Stratocastor",
                 Type.ELECTRIC,
                 Wood.ALDER,
-                Wood.ALDER);
+                Wood.ALDER,"6-String");
+
+        inventory.addGuitar("V00004",
+                1699.99,spec);
 
     }
 
